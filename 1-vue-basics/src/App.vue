@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Todo } from "./../src/models/Todo";
+import { Todo } from "@/models/Todo";
 
 const buttonText = "Spara";
 let clickable = true;
