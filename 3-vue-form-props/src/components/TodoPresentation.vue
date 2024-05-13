@@ -6,7 +6,8 @@ interface TodoPresentationProps {
   i: number;
 }
 
-defineProps<TodoPresentationProps>();
+const props = defineProps<TodoPresentationProps>();
+
 const emit = defineEmits<{
   (e: "toggle", i: number): void;
   (e: "remove", i: number): void;
@@ -14,6 +15,7 @@ const emit = defineEmits<{
 
 const handleToggle = (i: number) => {
   emit("toggle", i);
+  props.todo;
 };
 
 const handleRemove = (i: number) => {
