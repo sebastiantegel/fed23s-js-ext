@@ -32,6 +32,8 @@ export const MovieApp = () => {
     getData("star");
   });
 
+  console.log("Movies in state", state.movies);
+
   return (
     <>
       <SearchMovieForm getData={getData} />
