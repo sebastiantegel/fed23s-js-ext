@@ -1,0 +1,28 @@
+header {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  nav {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      display: flex;
+      gap: 0.5rem;
+
+      li {
+        a {
+          text-decoration: none;
+          color: black;
+
+          &.active {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
