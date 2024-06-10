@@ -7,6 +7,9 @@ import { NotFound } from "./pages/NotFound";
 import { Todo } from "./pages/Todo";
 import { Movies } from "./pages/Movies";
 import { Movie } from "./pages/Movie";
+import { moviesLoader } from "./loaders/moviesLoader";
+import { Suspense } from "react";
+import { Spinner } from "./components/Spinner";
 
 export const router = createBrowserRouter([
   {
@@ -31,11 +34,20 @@ export const router = createBrowserRouter([
       },
       {
         path: "/movies",
-        element: <Movies />,
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <Movies />
+          </Suspense>
+        ),
+        loader: moviesLoader,
       },
       {
         path: "/movie/:movieid",
-        element: <Movie />,
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <Movie />
+          </Suspense>
+        ),
       },
     ],
     errorElement: <NotFound />,

@@ -5,11 +5,13 @@ import { IOmdbResponse } from "../models/IOmdbResponse";
 import { MovieSearch } from "../components/MovieSearch";
 import { ShowMovies } from "../components/ShowMovies";
 import { Spinner } from "../components/Spinner";
+import { useLoaderData } from "react-router-dom";
+import { IMoviesLoader } from "../loaders/moviesLoader";
 
 export const Movies = () => {
-  const [movies, setMovies] = useState<IMovie[]>(
-    JSON.parse(localStorage.getItem("movies") || "[]")
-  );
+  const { movies } = useLoaderData() as IMoviesLoader;
+
+  const [moviesInState, setMovies] = useState<IMovie[]>(movies);
   const [loading, setLoading] = useState(false);
 
   const getMovies = async (searchText: string) => {
@@ -39,7 +41,7 @@ export const Movies = () => {
       {!loading && (
         <>
           <h1>Movies</h1>
-          <ShowMovies movies={movies}></ShowMovies>
+          <ShowMovies movies={moviesInState}></ShowMovies>
         </>
       )}
     </>
