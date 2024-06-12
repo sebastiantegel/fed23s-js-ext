@@ -6,6 +6,7 @@ import { WeatherPresentation } from "../components/WeatherPresentation";
 import { useApiData } from "../hooks/useApiData";
 
 export const Weather = () => {
+  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState<ILocation>();
   const [weather, setWeather] = useState<IWeather>();
   const { get } = useApiData(
@@ -15,6 +16,25 @@ export const Weather = () => {
   const handleGotLocation = (location: ILocation) => {
     setLocation(location);
   };
+
+  useEffect(() => {
+    setLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocation({
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+          name: "Din plats",
+        });
+
+        setLoading(false);
+      },
+      (err) => {
+        console.log(err);
+        setLoading(false);
+      }
+    );
+  }, []);
 
   useEffect(() => {
     if (!location) return;
@@ -34,12 +54,17 @@ export const Weather = () => {
   return (
     <>
       <h1>The Weather</h1>
-      <SearchWeather saveLocation={handleGotLocation}></SearchWeather>
-      {weather && (
-        <WeatherPresentation
-          weather={weather}
-          location={location}
-        ></WeatherPresentation>
+      {loading && <p>Hämtar din plats...</p>}
+      {!loading && (
+        <>
+          <SearchWeather saveLocation={handleGotLocation}></SearchWeather>
+          {weather && (
+            <WeatherPresentation
+              weather={weather}
+              location={location}
+            ></WeatherPresentation>
+          )}
+        </>
       )}
     </>
   );
