@@ -13,8 +13,10 @@ export enum ActionType {
 
 export const TodoReducer = (todos: Todo[], action: IAction) => {
   switch (action.type) {
-    case ActionType.ADDED:
-      return [...todos, new Todo(action.payload)];
+    case ActionType.ADDED: {
+      const newValue: Todo[] = [...todos, new Todo(action.payload)];
+      return newValue;
+    }
 
     case ActionType.REMOVED:
       return todos.filter((todo) => todo.id !== +action.payload);
